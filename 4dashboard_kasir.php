@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['username'])){
-    header("Location: 3proses_login.php");
+    header("Location: login.php");
     exit;
 }
 ?>
