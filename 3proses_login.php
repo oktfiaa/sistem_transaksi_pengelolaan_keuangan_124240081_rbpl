@@ -36,7 +36,7 @@ if(isset($_POST['login'])){
 
             // redirect sesuai role
             if($data['role_id'] == 1){
-                header("Location: 3dashboard_kasir.php");
+                header("Location: 4dashboard_kasir.php");
             }
             elseif($data['role_id'] == 2){
                 header("Location: dashboard_admin.php");
