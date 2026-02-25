@@ -18,7 +18,7 @@ if(isset($_POST['login'])){
     $query = mysqli_query($connection,
         "SELECT * FROM users 
         WHERE username='$username' 
-        AND status=1"
+        AND status='1'"
     );
 
     $data = mysqli_fetch_assoc($query);
@@ -35,13 +35,13 @@ if(isset($_POST['login'])){
             $_SESSION['role'] = $data['role_id'];
 
             // redirect sesuai role
-            if($data['role_id'] == 1){
+            if($data['role_id'] == '1'){
                 header("Location: 4dashboard_kasir.php");
             }
-            elseif($data['role_id'] == 2){
+            elseif($data['role_id'] == '2'){
                 header("Location: dashboard_admin.php");
             }
-            elseif($data['role_id'] == 3){
+            elseif($data['role_id'] == '3'){
                 header("Location: dashboard_owner.php");
             }
 
