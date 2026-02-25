@@ -18,7 +18,7 @@ if(isset($_POST['login'])){
     $query = mysqli_query($connection,
         "SELECT * FROM users 
         WHERE username='$username' 
-        AND status='1'"
+        AND status=1"
     );
 
     $data = mysqli_fetch_assoc($query);
