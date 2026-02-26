@@ -2,7 +2,7 @@
 $role = $_GET['role'] ?? '';
 ?>
 
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Login Sistem</title>
