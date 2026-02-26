@@ -7,7 +7,7 @@
 
 <h2>Login Sistem Keuangan Informasi Transaksi & Pengelolaan Laporan Keuangan</h2>
 
-<form method="POST" action="proses_login.php">
+<form method="POST" action="3proses_login.php">
 
     Username:<br>
     <input type="text" name="username"><br><br>
