@@ -11,3 +11,4 @@ if(!isset($_SESSION['username'])){
 <p>Halo <?php echo $_SESSION['nama']; ?></p>
 
 <a href="5logout.php">Logout</a>
+<a href="transaksi.php">Mulai Transaksi</a>
