@@ -10,6 +10,4 @@ $connection = mysqli_connect($hostname, $username, $password, $database);
 if (!$connection) {
     die("Koneksi gagal ;)" . mysqli_connect_error());
 }
-
-echo "Koneksi Anda Berhasil!";
 ?>
