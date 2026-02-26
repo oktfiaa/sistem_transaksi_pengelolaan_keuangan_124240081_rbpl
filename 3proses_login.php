@@ -7,6 +7,7 @@ if(isset($_POST['login'])){
 
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $role     = $_POST['role'];
 
     // cek kosong
     if(empty($username) || empty($password)){
@@ -18,6 +19,7 @@ if(isset($_POST['login'])){
     $query = mysqli_query($connection,
         "SELECT * FROM users 
         WHERE username='$username' 
+        AND role_id='$role'
         AND status='1'"
     );
 
