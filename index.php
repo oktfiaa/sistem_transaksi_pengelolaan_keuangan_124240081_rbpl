@@ -4,6 +4,7 @@
     <title>Sistem Manajemen Keuangan</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
@@ -88,6 +89,48 @@
             transform: scale(1.05);
             transition: 0.2s;
         }
+
+        @media (max-width: 768px) {
+        .header {
+            padding: 20px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .container {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            width: 90%;
+            height: auto;
+            padding: 20px;
+        }
+
+        .icon {
+            width: 50px;
+        }
+
+        .title-card {
+            font-size: 18px;
+        }
+
+        .desc {
+            font-size: 14px;
+        }
+
+        .masuk {
+            font-size: 14px;
+        }
+    }
     </style>
 </head>
 

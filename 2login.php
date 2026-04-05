@@ -29,6 +29,7 @@ elseif($role == 3){
     <title>Login Sistem</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
@@ -118,6 +119,47 @@ elseif($role == 3){
         .btn-login:hover {
             opacity: 0.9;
         }
+
+        @media (max-width: 768px) {
+        .header {
+            padding: 20px;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 20px;
+        }
+
+        .container {
+            margin-top: 40px;
+            padding: 10px;
+        }
+
+        .role-card {
+            width: 90%;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        .role-card img {
+            width: 50px;
+        }
+
+        .form-box {
+            width: 90%;
+        }
+
+        input {
+            padding: 8px;
+        }
+
+        .btn-login {
+            font-size: 16px;
+            padding: 10px;
+        }
+    }
     </style>
 </head>
 
