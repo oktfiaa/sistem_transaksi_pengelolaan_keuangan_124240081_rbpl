@@ -134,23 +134,26 @@ if(isset($_SESSION['cart'])){
             font-weight:600;
         }
         .modal {
-            display:none;
-            position:fixed;
-            z-index:999;
-            left:0;
-            top:0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,0.5);
+            display: none;
+            position: fixed;
+            z-index: 999;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
         }
+
         .modal-content {
-            background:white;
-            padding:20px;
-            width:300px;
-            margin:100px auto;
-            border-radius:10px;
-            text-align:center;
+            background: white;
+            padding: 25px;
+            width: 90%;
+            max-width: 320px;
+            border-radius: 12px;
+            text-align: center;
         }
+        
         @media(max-width:768px){
             .container{
                 flex-direction:column;
@@ -215,11 +218,21 @@ if(isset($_SESSION['cart'])){
         <!-- Tombol Tunai -->
         <form method="POST" action="proses_transaksi.php">
             <input type="hidden" name="metode" value="tunai">
-            <button type="submit" class="btn-tunai">Bayar Tunai</button>
+            <button 
+                type="submit" 
+                class="btn-tunai" 
+                <?php echo empty($_SESSION['cart']) ? 'disabled' : ''; ?>
+                >Bayar Tunai
+            </button>
         </form>
 
         <!-- Tombol Non-Tunai -->
-        <button onclick="openModal()" style="background:#1BB628;color:white;padding:12px;border-radius:10px;cursor:pointer;margin-top:10px;width:100%;">Bayar Non-Tunai</button>
+        <button 
+            onclick="openModal()" 
+            style="background:#1BB628;color:white;padding:12px;border-radius:10px;cursor:pointer;margin-top:10px;width:100%;"
+            <?php echo empty($_SESSION['cart']) ? 'disabled' : ''; ?>
+            >Bayar Non-Tunai
+        </button>
     </div>
 </div>
 
@@ -238,8 +251,9 @@ if(isset($_SESSION['cart'])){
 
 <script>
 function openModal() {
-    document.getElementById("modalPembayaran").style.display = "block";
+    document.getElementById("modalPembayaran").style.display = "flex";
 }
+
 function closeModal() {
     document.getElementById("modalPembayaran").style.display = "none";
 }
