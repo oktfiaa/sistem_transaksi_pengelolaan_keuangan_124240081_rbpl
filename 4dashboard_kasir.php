@@ -12,3 +12,5 @@ if(!isset($_SESSION['username'])){
 
 <a href="5logout.php">Logout</a>
 <a href="transaksi.php">Mulai Transaksi</a>
+<a href="">Notifikasi Verifikasi</a>
+<a href="rekap.php">Lihat Rekap Harian</a>

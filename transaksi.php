@@ -77,6 +77,7 @@ if(isset($_SESSION['cart'])){
             color:black;
             font-size:14px;
             white-space:nowrap;}
+            
         .btn-header:hover {
             background:#cfcfcf;
         }
@@ -168,6 +169,7 @@ if(isset($_SESSION['cart'])){
     <div class="header-right">
         <a href="notifikasi.php" class="btn-header">Notifikasi Verifikasi</a>
         <a href="rekap.php" class="btn-header">Lihat Rekap Harian</a>
+        <a href="4dashboard_kasir.php" class="btn-header">Kembali</a>
     </div>
 </div>
 
