@@ -41,7 +41,7 @@ if(isset($_POST['login'])){
                 header("Location: 4dashboard_kasir.php");
             }
             elseif($data['role_id'] == '2'){
-                header("Location: dashboard_admin.php");
+                header("Location: dashboard_admin_keuangan.php");
             }
             elseif($data['role_id'] == '3'){
                 header("Location: dashboard_owner.php");

@@ -235,7 +235,7 @@ $data = mysqli_query($connection,"
         <div class="btn-group">
 
             <!-- KIRIM KE ADMIN -->
-            <form method="POST" action="kirim_laporan.php" style="flex:1;">
+            <form method="POST" action="kirim_laporan_kasir.php" style="flex:1;">
                 <button type="submit" class="btn btn-kirim">
                     Kirim Laporan ke Admin
                 </button>
