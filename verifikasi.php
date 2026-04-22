@@ -192,11 +192,8 @@ th{
 
                 <td>
                     <?php if($row['status']=='menunggu'){ ?>
-                        <a href="proses_verifikasi.php?id=<?php echo $row['id_laporan']; ?>&aksi=acc">
-                            <button class="btn btn-acc">ACC</button>
-                        </a>
-                        <a href="proses_verifikasi.php?id=<?php echo $row['id_laporan']; ?>&aksi=tolak">
-                            <button class="btn btn-tolak">Tolak</button>
+                        <a href="verifikasi_detail.php?id=<?= $row['id_laporan'] ?>">
+                            <button class="btn btn-acc">Verifikasi</button>
                         </a>
                     <?php } ?>
                 </td>

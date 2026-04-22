@@ -114,7 +114,7 @@ body{
 
 <div class="menu">
     <a href="transaksi.php" class="transaksi"> Mulai Transaksi</a>
-    <a href="#" > Notifikasi Verifikasi</a>
+    <a href="notifikasi_kasir.php" > Notifikasi Verifikasi</a>
     <a href="rekap.php" class="rekap"> Lihat Rekap Harian</a>
     <a href="5logout.php" class="logout"> Logout</a>
 </div>

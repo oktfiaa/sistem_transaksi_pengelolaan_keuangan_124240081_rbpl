@@ -3,7 +3,7 @@ include "1koneksi.php";
 
 $id = $_GET['id'] ?? 0;
 
-// Ambil data rekap
+// Ambil data laporan
 $data = mysqli_fetch_assoc(mysqli_query($connection,
     "SELECT * FROM laporan_harian WHERE id_laporan='$id'"
 ));
@@ -22,12 +22,12 @@ if(isset($_POST['simpan'])){
     $selisih = $omzet - ($cash + $debit);
 
     mysqli_query($connection,"
-        UPDATE rekap_harian SET
+        UPDATE laporan_harian SET
         cash_real='$cash',
         selisih='$selisih',
         status='$status',
         catatan='$catatan'
-        WHERE id_rekap='$id'
+        WHERE id_laporan='$id'
     ");
 
     echo "<script>alert('Berhasil disimpan!'); window.location='verifikasi.php';</script>";
