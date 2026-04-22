@@ -131,8 +131,9 @@ td{
     </div>
 
     <div class="menu">
-        <a href="transaksi.php">Halaman Input</a>
+        <a href="transaksi.php">Input Transaksi</a>
         <a href="rekap.php">Lihat Rekap Harian</a>
+        <a href="4dashboard_kasir.php">Kembali</a>
     </div>
 </div>
 

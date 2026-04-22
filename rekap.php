@@ -172,7 +172,9 @@ $data = mysqli_query($connection,"
     </div>
 
     <div class="header-right">
-        <a href="transaksi.php" class="btn-header">Kembali</a>
+        <a href="transaksi.php" class="btn-header">Input Transaksi</a>
+        <a href="notifikasi_kasir.php" class="btn-header">Notifikasi Verifikasi</a>
+        <a href="4dashboard_kasir.php" class="btn-header">Kembali</a>
     </div>
 </div>
 
