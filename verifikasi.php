@@ -8,7 +8,10 @@ $data = mysqli_query($connection, "SELECT * FROM laporan_harian ORDER BY id_lapo
 // HITUNG STATUS
 $menunggu = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as jml FROM laporan_harian WHERE status='menunggu'"))['jml'];
 $acc = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as jml FROM laporan_harian WHERE status='acc'"))['jml'];
-$tolak = mysqli_fetch_assoc(mysqli_query($connection, "SELECT COUNT(*) as jml FROM laporan_harian WHERE status='ditolak'"))['jml'];
+$tolak = mysqli_fetch_assoc(mysqli_query($connection, 
+    "SELECT COUNT(*) as jml FROM laporan_harian 
+    WHERE status='ditolak' AND (aksi_kasir IS NULL OR aksi_kasir='')"
+    ))['jml'];
 ?>
 
 <!DOCTYPE html>
@@ -120,6 +123,8 @@ th{
 .btn-acc{ background:#1BB628; color:white; }
 .btn-tolak{ background:#FF383C; color:white; }
 
+.revisi{ background:#3b82f6; }
+
 /* MOBILE */
 @media(max-width:600px){
     .title{
@@ -185,9 +190,17 @@ th{
                 <td><?php echo $row['total_transaksi']; ?></td>
 
                 <td>
-                    <span class="status <?php echo $row['status']; ?>">
-                        <?php echo $row['status']; ?>
-                    </span>
+                    <?php
+                        if($row['status']=='ditolak' && !empty($row['aksi_kasir'])){
+                            echo "<span class='status revisi'>sudah direvisi</span>";
+                        }elseif($row['status']=='menunggu'){
+                            echo "<span class='status menunggu'>menunggu</span>";
+                        }elseif($row['status']=='acc'){
+                            echo "<span class='status acc'>acc</span>";
+                        }else{
+                            echo "<span class='status tolak'>ditolak</span>";
+                        }
+                    ?>
                 </td>
 
                 <td>

@@ -179,10 +179,10 @@ td{
                     <?php if($row['status']=='ditolak'){ ?>
                         <?php if(empty($row['aksi_kasir'])){ ?>
                             <a href="aksi_kasir.php?id=<?= $row['id_laporan'] ?>">
-                                <button class="btn btn-aksi">Tindak</button>
+                                <button class="btn btn-aksi">Konfirmasi</button>
                             </a>
                         <?php } else { ?>
-                            <small>✔ Sudah ditindak</small>
+                            <small>Sudah direvisi</small>
                         <?php } ?>
                     <?php } else { ?>
                         -

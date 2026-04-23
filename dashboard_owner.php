@@ -2,46 +2,44 @@
 session_start();
 include "1koneksi.php";
 
-// FILTER PERIODE
+// FILTER
 $filter = $_GET['filter'] ?? '7hari';
 
-$where = "";
+$where = "WHERE status='acc'";
+
 if($filter == '7hari'){
-    $where = "WHERE tanggal >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
+    $where .= " AND tanggal >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
 }elseif($filter == '30hari'){
-    $where = "WHERE tanggal >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+    $where .= " AND tanggal >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
 }
 
-// AMBIL DATA (HANYA ACC)
+// DATA
 $query = mysqli_query($connection,"
     SELECT * FROM laporan_harian 
-    $where AND status='acc'
+    $where
     ORDER BY tanggal ASC
 ");
 
-// TOTAL OMZET
+// TOTAL
 $total_omzet = mysqli_fetch_assoc(mysqli_query($connection,"
-    SELECT SUM(omzet) as total FROM laporan_harian 
-    $where AND status='acc'
+    SELECT SUM(omzet) as total FROM laporan_harian $where
 "))['total'] ?? 0;
 
-// TOTAL TRANSAKSI
 $total_transaksi = mysqli_fetch_assoc(mysqli_query($connection,"
-    SELECT SUM(total_transaksi) as total FROM laporan_harian 
-    $where AND status='acc'
+    SELECT SUM(total_transaksi) as total FROM laporan_harian $where
 "))['total'] ?? 0;
 
-// RATA-RATA
+// RATA
 $rata = 0;
-$jumlah_hari = mysqli_num_rows($query);
-if($jumlah_hari > 0){
-    $rata = $total_omzet / $jumlah_hari;
+$jumlah = mysqli_num_rows($query);
+if($jumlah > 0){
+    $rata = $total_omzet / $jumlah;
 }
 
-// HARI TERLARIS
+// TOP
 $top = mysqli_fetch_assoc(mysqli_query($connection,"
     SELECT tanggal, omzet FROM laporan_harian
-    $where AND status='acc'
+    $where
     ORDER BY omzet DESC LIMIT 1
 "));
 ?>
@@ -62,11 +60,10 @@ body{
 /* HEADER */
 .header{
     background:#fff;
-    padding:15px 20px;
+    padding:18px 25px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    flex-wrap:wrap;
     box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
@@ -75,40 +72,36 @@ body{
     font-weight:600;
 }
 
-.menu{
-    display:flex;
-    gap:10px;
-}
-
 .menu a{
+    margin-left:10px;
     text-decoration:none;
-    padding:8px 12px;
-    border-radius:8px;
-    font-size:13px;
+    padding:10px 14px;
+    border-radius:10px;
     background:#e5e7eb;
     color:black;
+    font-size:14px;
 }
 
 /* CONTAINER */
 .container{
-    padding:20px;
+    padding:25px;
 }
 
 /* FILTER */
 .filter{
-    margin-bottom:15px;
     display:flex;
     gap:10px;
     flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
 .filter a{
-    padding:8px 12px;
-    border-radius:8px;
+    padding:10px 14px;
+    border-radius:10px;
     text-decoration:none;
     background:#ddd;
     color:black;
-    font-size:13px;
+    font-size:14px;
 }
 
 .active{
@@ -121,47 +114,120 @@ body{
     display:flex;
     gap:15px;
     flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
 .card{
     flex:1;
-    min-width:200px;
-    padding:15px;
-    border-radius:10px;
+    min-width:220px;
+    padding:22px;
+    border-radius:16px;
     color:white;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
-.blue{ background:#4f46e5; }
-.green{ background:#1BB628; }
-.orange{ background:#FF8D28; }
+.blue{ background:linear-gradient(135deg,#4f46e5,#6366f1); }
+.green{ background:linear-gradient(135deg,#16a34a,#22c55e); }
+.orange{ background:linear-gradient(135deg,#f97316,#fb923c); }
 
-/* TABLE */
-.table-box{
+.card h3{
+    margin:0;
+    font-size:16px;
+    font-weight:500;
+}
+
+.card h2{
+    margin-top:8px;
+    font-size:22px;
+}
+
+/* BOX */
+.box{
     margin-top:20px;
     background:white;
-    padding:15px;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* LIST DATA */
+.list-data{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    margin-top:15px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#f9fafb;
+    padding:20px;
+    border-radius:16px;
+}
+
+.left{
+    display:flex;
+    gap:16px;
+    align-items:center;
+}
+
+.no{
+    background:#4f46e5;
+    color:white;
+    padding:8px 14px;
     border-radius:10px;
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th, td{
-    padding:10px;
-    border-bottom:1px solid #ddd;
     font-size:14px;
+    font-weight:600;
+}
+
+.tanggal{
+    font-weight:600;
+    font-size:16px;
+}
+
+.kasir{
+    font-size:14px;
+    color:#666;
+}
+
+.right{
+    text-align:right;
+}
+
+.omzet{
+    font-weight:700;
+    font-size:18px;
+    color:#16a34a;
+}
+
+.trx{
+    font-size:13px;
+    color:#666;
+}
+
+/* EMPTY */
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#888;
 }
 
 /* MOBILE */
 @media(max-width:600px){
-    .title{
-        font-size:16px;
+    .item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
     }
-    th, td{
-        font-size:12px;
+
+    .right{
+        text-align:left;
+    }
+
+    .title{
+        font-size:18px;
     }
 }
 </style>
@@ -170,7 +236,7 @@ th, td{
 <body>
 
 <div class="header">
-    <div class="title">Selamat Datang Owner</div>
+    <div class="title">Halo Owner 👋</div>
     <div class="menu">
         <a href="index.php">Kembali</a>
         <a href="5logout.php">Logout</a>
@@ -181,18 +247,13 @@ th, td{
 
 <h2>Dashboard Omzet</h2>
 
-<!-- FILTER -->
 <div class="filter">
     <a href="?filter=7hari" class="<?= $filter=='7hari'?'active':'' ?>">7 Hari</a>
     <a href="?filter=30hari" class="<?= $filter=='30hari'?'active':'' ?>">30 Hari</a>
     <a href="?filter=semua" class="<?= $filter=='semua'?'active':'' ?>">Semua</a>
-
-    <a href="export_excell.php?filter=<?= $filter ?>" style="background:#8AFFBF;">
-        Download Excel
-    </a>
+    <a href="export_excell.php?filter=<?= $filter ?>" style="background:#8AFFBF;">Download Excel</a>
 </div>
 
-<!-- CARDS -->
 <div class="cards">
     <div class="card blue">
         <h3>Total Omzet</h3>
@@ -210,40 +271,40 @@ th, td{
     </div>
 </div>
 
-<!-- TOP SALES -->
 <?php if($top){ ?>
-<div class="table-box">
+<div class="box">
     <h3>⭐ Penjualan Tertinggi</h3>
-    <p>
-        Tanggal: <b><?= $top['tanggal'] ?></b> |
-        Omzet: <b>Rp <?= number_format($top['omzet']) ?></b>
-    </p>
+    <p><?= date('d M Y', strtotime($top['tanggal'])) ?> — <b>Rp <?= number_format($top['omzet']) ?></b></p>
 </div>
 <?php } ?>
 
-<!-- TABLE -->
-<div class="table-box">
+<div class="box">
     <h3>Data Omzet</h3>
 
-    <table>
-        <tr>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kasir</th>
-            <th>Omzet</th>
-            <th>Transaksi</th>
-        </tr>
+    <?php if(mysqli_num_rows($query) > 0){ ?>
+        <div class="list-data">
 
-        <?php $no=1; mysqli_data_seek($query,0); while($row=mysqli_fetch_assoc($query)){ ?>
-        <tr>
-            <td><?= $no++ ?></td>
-            <td><?= $row['tanggal'] ?></td>
-            <td><?= $row['nama_kasir'] ?></td>
-            <td>Rp <?= number_format($row['omzet']) ?></td>
-            <td><?= $row['total_transaksi'] ?></td>
-        </tr>
+        <?php $no=1; while($row=mysqli_fetch_assoc($query)){ ?>
+            <div class="item">
+                <div class="left">
+                    <div class="no">#<?= $no++ ?></div>
+                    <div>
+                        <div class="tanggal"><?= date('d M Y', strtotime($row['tanggal'])) ?></div>
+                        <div class="kasir"><?= $row['nama_kasir'] ?></div>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="omzet">Rp <?= number_format($row['omzet']) ?></div>
+                    <div class="trx"><?= $row['total_transaksi'] ?> transaksi</div>
+                </div>
+            </div>
         <?php } ?>
-    </table>
+
+        </div>
+    <?php } else { ?>
+        <div class="empty">Tidak ada data 😢</div>
+    <?php } ?>
 
 </div>
 
