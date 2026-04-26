@@ -2,17 +2,14 @@
 session_start();
 include "1koneksi.php";
 
-// Pastikan ada cart
 if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
     echo "Keranjang kosong!";
     exit;
 }
 
-// Ambil metode pembayaran
 $metode = $_POST['metode'];
 $pin = ($metode === 'non_tunai') ? $_POST['pin'] : NULL;
 
-// Hitung total
 $totalQty = 0;
 $totalHarga = 0;
 
@@ -21,15 +18,34 @@ foreach($_SESSION['cart'] as $item){
     $totalHarga += $item['subtotal'];
 }
 
-// Simpan ke tabel transaksi
-$stmt = $connection->prepare("INSERT INTO transaksi (total_qty, total_harga, metode, pin) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("iiss", $totalQty, $totalHarga, $metode, $pin);
-$stmt->execute();
+$tanggal = date('Y-m-d H:i:s');
+
+// CEK KONEKSI
+if(!$connection){
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+
+// SIMPAN TRANSAKSI
+$stmt = $connection->prepare("INSERT INTO transaksi (total_qty, total_harga, metode, pin, tanggal) VALUES (?, ?, ?, ?, ?)");
+
+if(!$stmt){
+    die("Prepare gagal: " . $connection->error);
+}
+
+$stmt->bind_param("iisss", $totalQty, $totalHarga, $metode, $pin, $tanggal);
+
+if(!$stmt->execute()){
+    die("Execute gagal: " . $stmt->error);
+}
 
 $id_transaksi = $stmt->insert_id;
 
-// Simpan detail tiap barang
+// SIMPAN DETAIL
 $stmt_detail = $connection->prepare("INSERT INTO transaksi_detail (id_transaksi, kode_barang, nama_barang, qty, harga, subtotal) VALUES (?, ?, ?, ?, ?, ?)");
+
+if(!$stmt_detail){
+    die("Prepare detail gagal: " . $connection->error);
+}
 
 foreach($_SESSION['cart'] as $item){
     $stmt_detail->bind_param(
@@ -41,13 +57,14 @@ foreach($_SESSION['cart'] as $item){
         $item['harga'],
         $item['subtotal']
     );
-    $stmt_detail->execute();
+
+    if(!$stmt_detail->execute()){
+        die("Execute detail gagal: " . $stmt_detail->error);
+    }
 }
 
-// Hapus cart setelah transaksi sukses
 unset($_SESSION['cart']);
 
-// Redirect ke halaman sukses
 header("Location: pembayaran_berhasil.php?id=$id_transaksi");
 exit;
 ?>
