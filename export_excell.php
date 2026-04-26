@@ -28,15 +28,42 @@ header("Expires: 0");
 <html>
 <head>
 <style>
-    body{ font-family: Arial, sans-serif; }
-    .judul{ font-size:16pt; font-weight:bold; }
-    .sub{ font-size:10pt; color:#555; }
-    .header-col{ background:#1a1d27; color:white; font-weight:bold; text-align:center; padding:8px; }
-    .data-row td{ padding:6px 10px; border:1px solid #ddd; }
-    .data-row:nth-child(even) td{ background:#f9fafb; }
-    .summary-row td{ background:#e6f4ea; font-weight:bold; padding:6px 10px; border:1px solid #ccc; }
-    .number{ text-align:right; mso-number-format:'\#\,\#\#0'; }
-    .center{ text-align:center; }
+    body{ 
+        font-family: Arial, sans-serif; 
+    }
+    .judul{ 
+        font-size:16pt; 
+        font-weight:bold; 
+    }
+    .sub{ 
+        font-size:10pt; 
+        color:#555; 
+    }
+    .header-col{ 
+        background:#1a1d27; 
+        color:white; 
+        font-weight:bold; 
+        text-align:center; 
+        padding:8px; }
+    .data-row td{ 
+        padding:6px 10px; 
+        border:1px solid #ddd; }
+    .data-row:nth-child(even) 
+    td{ 
+        background:#f9fafb;
+    }
+    .summary-row td{ 
+        background:#e6f4ea; 
+        font-weight:bold; 
+        padding:6px 10px; 
+        border:1px solid #ccc; }
+    .number{ 
+        text-align:right; 
+        mso-number-format:'\#\,\#\#0'; 
+    }
+    .center{ 
+        text-align:center; 
+        }
 </style>
 </head>
 <body>
